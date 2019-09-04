@@ -22,7 +22,7 @@
                                 <div class="ant-timeline-item-content">
                                     <span class="badge badge-danger">! </span>
                                     <div class="d-flex align-items-center post-title">
-                                     <a class="post-link text-danger h5 text-danger" href="#">NoThing</a>
+                                     <a class="post-link text-danger h5 text-danger" href="{{site.url}}{{site.baseurl}}{{ post.url}}">{{post.title}}</a>
                                     </div>
                                 </div>
                             </li>
@@ -39,9 +39,9 @@
 
                             <li class="ant-timeline-item">
                                 <div class="ant-timeline-item-content">
-                                    <span class="badge badge-primary">! </span>
+                                    <span class="badge badge-danger">{{ post.date | date: "%Y-%m-%d" }} </span>
                                     <div class="d-flex align-items-center post-title">
-                                        <a class="post-link h5 text-primary" href="#">NoThing</a>
+                                        <a class="post-link h5 text-primary" href="{{site.url}}{{site.baseurl}}{{ post.url}}">{{post.title}}</a>
                                      </div>
                                 </div>
                             </li>
