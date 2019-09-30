@@ -1,0 +1,53 @@
+<h2 id="jquery-的作用">jQuery 的作用</h2>
+<p>消除浏览器差异：你不需要自己写冗长的代码来针对不同的浏览器来绑定事件，编写AJAX等代码
+简洁的操作DOM的方法：写$(‘#test’)肯定比document.getElementById(‘test’)来得简洁
+轻松实现动画、修改CSS等各种操作<br />
+jQuery的理念“Write Less, Do More“，让你写更少的代码，完成更多的工作！</p>
+
+<p>使用jQuery只需要在页面的&lt;head&gt;引入jQuery文件即可</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;head&gt;
+    &lt;script src="//code.jquery.com/jquery-1.11.3.min.js"&gt;&lt;/script&gt;
+	...
+&lt;/head&gt;
+</code></pre></div></div>
+<p>$是著名的jQuery符号。实际上，jQuery把所有功能全部封装在一个全局变量jQuery中，而$也是一个合法的变量名，它是变量jQuery的别名</p>
+
+<p>选择器
+jQuery的选择器就是帮助我们快速定位到一个或多个DOM节点
+jQuery的选择器不会返回undefined或者null
+按ID查找
+// 查找&lt;div id="abc"&gt;:
+var div = $(‘#abc’);
+按tag查找
+var ps = $(‘p’); // 返回所有&lt;p&gt;节点
+ps.length; // 数一数页面有多少个&lt;p&gt;节点
+按class查找
+var a = $(‘.red’); // 所有节点包含<code class="highlighter-rouge">class="red"</code>都将返回
+// &lt;div class="red"&gt;…&lt;/div&gt;
+// &lt;p class="green red"&gt;…&lt;/p&gt;
+通常很多节点有多个class，我们可以查找同时包含red和green的节点
+var a = $(‘.red.green’); // 注意没有空格！
+// 符合条件的节点：
+// &lt;div class="red green"&gt;…&lt;/div&gt;
+// &lt;div class="blue green red"&gt;…&lt;/div&gt;
+按属性查找
+var email = $(‘[name=email]’); // 找出&lt;??? name=”email”&gt;
+var passwordInput = $(‘[type=password]’); // 找出&lt;??? type=”password”&gt;
+var a = $(‘[items=”A B”]’); // 找出&lt;??? items=”A B”&gt;
+var email = $(‘[name=email]’); // 找出&lt;??? name=”email”&gt;
+var passwordInput = $(‘[type=password]’); // 找出&lt;??? type=”password”&gt;
+var a = $(‘[items=”A B”]’); // 找出&lt;??? items=”A B”&gt;
+属性查找还可以使用前缀查找或者后缀查找：
+var icons = $(‘[name^=icon]’); // 找出所有name属性值以icon开头的DOM
+// 例如: name=”icon-1”, name=”icon-2”
+var names = $(‘[name$=with]’); // 找出所有name属性值以with结尾的DOM
+// 例如: name=”startswith”, name=”endswith”
+这个方法尤其适合通过class属性查找，且不受class包含多个名称的影响
+var icons = $(‘[class^=”icon-“]’); // 找出所有class包含至少一个以<code class="highlighter-rouge">icon-</code>开头的DOM
+// 例如: class=”icon-clock”, class=”abc icon-home”
+组合查找
+var emailInput = $(‘input[name=email]’); // 不会找出&lt;div name="email"&gt;
+多项选择器
+$(‘p,div’); // 把&lt;p&gt;和&lt;div&gt;都选出来
+$(‘p.red,p.green’); // 把&lt;p class="red"&gt;和&lt;p class="green"&gt;都选出来</p>
+

@@ -1,0 +1,285 @@
+<h2 id="nodejs">nodejs</h2>
+<p>在命令行模式下，可以执行node进入Node交互式环境，也可以执行node hello.js运行一个.js文件
+创建一个函数，这样我们就可以在其他地方调用这个函数：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'use strict';
+
+var s = 'Hello';
+
+function greet(name) {
+    console.log(s + ', ' + name + '!');
+}
+
+module.exports = greet;
+</code></pre></div></div>
+<p>最后一行是一个奇怪的赋值语句，它的意思是，把函数greet作为模块的输出暴露出去，这样其他模块就可以使用greet函数了
+再编写一个js文件，调用模块的greet函数</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'use strict';
+
+// 引入hello模块:
+var greet = require('./hello');
+
+var s = 'Michael';
+
+greet(s); // Hello, Michael!
+</code></pre></div></div>
+<p>这种模块加载机制被称为CommonJS规范。在这个规范下，每个.js文件都是一个模块，它们内部各自使用的变量名和函数名都互不冲突</p>
+
+<p>基本模块
+global
+process也是Node.js提供的一个对象，它代表当前Node.js进程。通过process对象可以拿到许多有用信息
+JavaScript程序是由事件驱动执行的单线程模型，Node.js也不例外。Node.js不断执行响应事件的JavaScript函数，直到没有任何响应事件的函数可以执行时，Node.js就退出了
+如果我们想要在下一次事件响应中执行代码，可以调用process.nextTick()：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// test.js
+// process.nextTick()将在下一轮事件循环中调用:
+process.nextTick(function () {
+    console.log('nextTick callback!');
+});
+console.log('nextTick was set!');
+用Node执行上面的代码node test.js，你会看到，打印输出是：
+nextTick was set!
+nextTick callback!
+这说明传入process.nextTick()的函数不是立刻执行，而是要等到下一次事件循环
+</code></pre></div></div>
+<p>Node.js内置的fs模块就是文件系统模块，负责读写文件
+fs模块同时提供了异步和同步的方法
+异步读文件
+异步读取时，传入的回调函数接收两个参数，当正常读取时，err参数为null，data参数为读取到的String。当读取发生错误时，err参数代表一个错误对象，data为undefined。这也是Node.js标准的回调函数：第一个参数代表错误信息，第二个参数代表结果。后面我们还会经常编写这种回调函数</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'use strict';
+
+var fs = require('fs');
+
+fs.readFile('sample.txt', 'utf-8', function (err, data) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(data);
+    }
+});
+</code></pre></div></div>
+<p>同步读文件
+原异步调用的回调函数的data被函数直接返回，函数名需要改为readFileSync，其它参数不变
+如果同步读取文件发生错误，则需要用try…catch捕获该错误</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'use strict';
+var fs = require('fs');
+var data = fs.readFileSync('sample.txt', 'utf-8');
+console.log(data);
+</code></pre></div></div>
+<p>写文件
+将数据写入文件是通过fs.writeFile()实现的
+stat
+如果我们要获取文件大小，创建时间等信息，可以使用fs.stat()，它返回一个Stat对象，能告诉我们文件或目录的详细信息</p>
+
+<p>stream</p>
+
+<p>pipe
+所有的数据自动从Readable流进入Writable流</p>
+
+<p>HTTP服务器</p>
+
+<p>文件服务器
+我们只需要解析request.url中的路径，然后在本地找到对应的文件，把文件内容发送出去就可以了
+处理本地文件目录需要使用Node.js提供的path模块
+crypto
+crypto模块的目的是为了提供通用的加密和哈希算法
+MD5和SHA1
+MD5是一种常用的哈希算法，用于给任意数据一个“签名
+Hmac
+Hmac算法也是一种哈希算法，它可以利用MD5或SHA1等哈希算法。不同的是，Hmac还需要一个密钥
+AES
+AES是一种常用的对称加密算法，加解密都用同一个密钥
+Diffie-Hellman
+DH算法是一种密钥交换协议，它可以让双方在不泄漏密钥的情况下协商出一个密钥来
+RSA
+RSA算法是一种非对称加密算法，即由一个私钥和一个公钥构成的密钥对，通过私钥加密，公钥解密，或者通过公钥加密，私钥解密。其中，公钥可以公开，私钥必须保密
+证书
+crypto模块也可以处理数字证书。数字证书通常用在SSL连接，也就是Web的https连接。一般情况下，https连接只需要处理服务器端的单向认证，如无特殊需求（例如自己作为Root给客户发认证证书），建议用反向代理服务器如Nginx等Web服务器去处理证书</p>
+
+<h4 id="koa入门">koa入门</h4>
+<p>创建一个目录hello-koa并作为工程目录,然后创建app.js，输入以下代码</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 导入koa，和koa 1.x不同，在koa2中，我们导入的是一个class，因此用大写的Koa表示:
+const Koa = require('koa');
+
+// 创建一个Koa对象表示web app本身:
+const app = new Koa();
+
+// 对于任何请求，app将调用该异步函数处理请求：
+app.use(async (ctx, next) =&gt; {
+    await next();
+    ctx.response.type = 'text/html';
+    ctx.response.body = '&lt;h1&gt;Hello, koa2!&lt;/h1&gt;';
+});
+
+// 在端口3000监听:
+app.listen(3000);
+console.log('app started at port 3000...');
+</code></pre></div></div>
+<p>对于每一个http请求，koa将调用我们传入的异步函数来处理：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>async (ctx, next) =&gt; {
+    await next();
+    // 设置response的Content-Type:
+    ctx.response.type = 'text/html';
+    // 设置response的内容:
+    ctx.response.body = '&lt;h1&gt;Hello, koa2!&lt;/h1&gt;';
+}
+</code></pre></div></div>
+<p>方法二：在hello-koa这个目录下创建一个package.json
+运行npm install就可以把所需包以及依赖包一次性全部装好</p>
+
+<p>命令node app.js在命令行启动程序，或者用npm start启动</p>
+
+<p>koa-router
+为了处理URL，我们需要引入koa-router这个middleware，让它负责处理URL映射
+把上一节的hello-koa工程复制一份，重命名为url-koa
+先在package.json中添加依赖项
+“koa-router”: “7.0.0”
+用npm install安装
+修改app.js，使用koa-router来处理URL</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const Koa = require('koa');
+
+// 注意require('koa-router')返回的是函数:
+const router = require('koa-router')();
+
+const app = new Koa();
+
+// log request URL:
+app.use(async (ctx, next) =&gt; {
+    console.log(`Process ${ctx.request.method} ${ctx.request.url}...`);
+    await next();
+});
+
+// add url-route:
+router.get('/hello/:name', async (ctx, next) =&gt; {
+    var name = ctx.params.name;
+    ctx.response.body = `&lt;h1&gt;Hello, ${name}!&lt;/h1&gt;`;
+});
+
+router.get('/', async (ctx, next) =&gt; {
+    ctx.response.body = '&lt;h1&gt;Index&lt;/h1&gt;';
+});
+
+// add router middleware:
+app.use(router.routes());
+
+app.listen(3000);
+console.log('app started at port 3000...');
+</code></pre></div></div>
+<p>注意导入koa-router的语句最后的()是函数调用
+const router = require(‘koa-router’)();
+以上处理的是get请求</p>
+
+<p>处理post请求
+我们又需要引入另一个middleware来解析原始request请求，然后，把解析后的参数，绑定到ctx.request.body中，koa-bodyparser就是用来干这个活的
+在package.json中添加依赖项
+“koa-bodyparser”: “3.2.0”
+用router.get(‘/path’, async fn)处理的是get请求
+修改app.js，引入koa-bodyparser：
+const bodyParser = require(‘koa-bodyparser’);
+app.use(bodyParser());
+由于middleware的顺序很重要，这个koa-bodyparser必须在router之前被注册到app对象上。</p>
+
+<h2 id="把url-koa复制一份重命名为url2-koa准备重构这个项目">把url-koa复制一份，重命名为url2-koa，准备重构这个项目。</h2>
+<p>先在controllers目录下编写index.js：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var fn_index = async (ctx, next) =&gt; {
+    ctx.response.body = `&lt;h1&gt;Index&lt;/h1&gt;
+        &lt;form action="/signin" method="post"&gt;
+            &lt;p&gt;Name: &lt;input name="name" value="koa"&gt;&lt;/p&gt;
+            &lt;p&gt;Password: &lt;input name="password" type="password"&gt;&lt;/p&gt;
+            &lt;p&gt;&lt;input type="submit" value="Submit"&gt;&lt;/p&gt;
+        &lt;/form&gt;`;
+};
+
+var fn_signin = async (ctx, next) =&gt; {
+    var
+        name = ctx.request.body.name || '',
+        password = ctx.request.body.password || '';
+    console.log(`signin with name: ${name}, password: ${password}`);
+    if (name === 'koa' &amp;&amp; password === '12345') {
+        ctx.response.body = `&lt;h1&gt;Welcome, ${name}!&lt;/h1&gt;`;
+    } else {
+        ctx.response.body = `&lt;h1&gt;Login failed!&lt;/h1&gt;
+        &lt;p&gt;&lt;a href="/"&gt;Try again&lt;/a&gt;&lt;/p&gt;`;
+    }
+};
+
+module.exports = {
+    'GET /': fn_index,
+    'POST /signin': fn_signin
+};
+</code></pre></div></div>
+<p>修改app.js，让它自动扫描controllers目录，找到所有js文件，导入，然后注册每个URL：
+// 先导入fs模块，然后用readdirSync列出文件
+// 这里可以用sync是因为启动时只运行一次，不存在性能问题:
+var files = fs.readdirSync(__dirname + ‘/controllers’);</p>
+
+<p>// 过滤出.js文件:
+var js_files = files.filter((f)=&gt;{
+    return f.endsWith(‘.js’);
+});</p>
+
+<p>// 处理每个js文件:
+for (var f of js_files) {
+    console.log(<code class="highlighter-rouge">process controller: ${f}...</code>);
+    // 导入js文件:
+    let mapping = require(__dirname + ‘/controllers/’ + f);
+    for (var url in mapping) {
+        if (url.startsWith(‘GET ‘)) {
+            // 如果url类似”GET xxx”:
+            var path = url.substring(4);
+            router.get(path, mapping[url]);
+            console.log(<code class="highlighter-rouge">register URL mapping: GET ${path}</code>);
+        } else if (url.startsWith(‘POST ‘)) {
+            // 如果url类似”POST xxx”:
+            var path = url.substring(5);
+            router.post(path, mapping[url]);
+            console.log(<code class="highlighter-rouge">register URL mapping: POST ${path}</code>);
+        } else {
+            // 无效的URL:
+            console.log(<code class="highlighter-rouge">invalid URL: ${url}</code>);
+        }
+    }
+}</p>
+
+<p>Controller Middleware
+最后，我们把扫描controllers目录和创建router的代码从app.js中提取出来，作为一个简单的middleware使用，命名为controller.js：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const fs = require('fs');
+
+function addMapping(router, mapping) {
+    ...
+}
+
+function addControllers(router, dir) {
+    ...
+}
+
+module.exports = function (dir) {
+    let
+        controllers_dir = dir || 'controllers', // 如果不传参数，扫描目录默认为'controllers'
+        router = require('koa-router')();
+    addControllers(router, controllers_dir);
+    return router.routes();
+};
+</code></pre></div></div>
+
+<p>Nunjucks
+其实它是一个模板引擎
+创建一个use-nunjucks的VS Code工程结构如下
+use-nunjucks/
+|
++- .vscode/
+|  |
+|  +- launch.json &lt;– VSCode 配置文件
+|
++- views/
+|  |
+|  +- hello.html &lt;– HTML模板文件
+|
++- app.js &lt;– 入口js
+|
++- package.json &lt;– 项目描述文件
+|
++- node_modules/ &lt;– npm安装的所有依赖包
+模板文件存放在views目录中
+先在package.json中添加nunjucks的依赖
+“nunjucks”: “2.4.2”
+注意，模板引擎是可以独立使用的，并不需要依赖koa。用npm install安装所有依赖包。</p>
+

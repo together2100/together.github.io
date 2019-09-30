@@ -1,0 +1,669 @@
+<h1 id="css层叠样式表">CSS层叠样式表</h1>
+<h2 id="1使用css样式的方式">1.使用CSS样式的方式</h2>
+<h3 id="html-doctype-声明标签">HTML &lt;!DOCTYPE&gt; 声明标签</h3>
+<ul>
+  <li>定义和用法
+    <ul>
+      <li>&lt;!DOCTYPE&gt; 声明必须是 HTML 文档的第一行，位于 &lt;html&gt; 标签之前。</li>
+    </ul>
+  </li>
+</ul>
+
+<p>&lt;!DOCTYPE&gt; 声明不是 HTML 标签；它是指示 web 浏览器关于页面使用哪个 HTML 版本进行编写的指令。</p>
+
+<p>在 HTML 4.01 中，&lt;!DOCTYPE&gt; 声明引用 DTD，因为 HTML 4.01 基于 SGML。DTD 规定了标记语言的规则，这样浏览器才能正确地呈现内容。</p>
+
+<p>HTML5 不基于 SGML，所以不需要引用 DTD。</p>
+<ul>
+  <li>各版本的声明
+    <ul>
+      <li>HTML5
+        <ul>
+          <li>&lt;!DOCTYPE html&gt;</li>
+          <li>
+            <meta charset="utf-8" />
+          </li>
+        </ul>
+      </li>
+      <li>HTML 4.01
+        <ul>
+          <li>&lt;!DOCTYPE HTML PUBLIC “-//W3C//DTD HTML 4.01 Transitional//EN”</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>“http://www.w3.org/TR/html4/loose.dtd”&gt;
+        * 该 DTD 包含所有 HTML 元素和属性，包括展示性的和弃用的元素（比如 font）。不允许框架集（Framesets）。
+        * &lt;meta http-equiv=Content-Type content=”text/html;charset=utf-8”&gt;
+        * 注意的规则
+            * 单标记必须闭合
+                * 比如<br />必须写为<br />  <input />
+            * 单属性必须添加属性值
+                * <input typr="radio" checked="" />必须写为<input typr="radio" checked="checked" />
+            * 标记和属性必须使用小写
+                * &lt;Body&gt;&lt;BODY&gt;是错的必须写为&lt;body&gt;
+            * 属性的属性值必须使用””
+                * 在HTML4.01之前可以使用&lt;body bgcolor=red&gt;,HTML4.01必须写为&lt;body bgcolor="red"&gt;</p>
+<h3 id="内链样式表">内链样式表</h3>
+<ul>
+  <li>
+    <body style="background-color:green; margin:0; padding:0;"></body>
+    <h3 id="嵌入式样式表">嵌入式样式表</h3>
+  </li>
+  <li>
+    <style type="text/css"></style>
+  </li>
+  <li>需要将样式放在&lt;head&gt;&lt;/head&gt;中
+    <h3 id="引入式样式表">引入式样式表</h3>
+  </li>
+  <li>
+    <link rel="StyleSheet" type="text/css" href="style.css" />
+
+    <h2 id="2定义样式表">2.定义样式表</h2>
+    <h3 id="html标记定义">HTML标记定义</h3>
+  </li>
+  <li>
+    <p>...</p>
+  </li>
+  <li>p { 属性:属性值 ；属性1:属性值1 }</li>
+  <li>p可以叫做选择器，定义那个标记中的内容执行其中的样式</li>
+  <li>一个选择器可以控制若干个样式属性，他们之间需要用英语的“;”隔开，最后一个可以不应加“;”
+    <h3 id="class定义">Class定义</h3>
+  </li>
+  <li>
+    <p class="p">...</p>
+  </li>
+  <li>class定义是以“.”开始</li>
+  <li>.p { 属性:属性值 ；属性1:属性值1 }
+    <h3 id="id定义">ID定义</h3>
+  </li>
+  <li>
+    <p id="p">...</p>
+  </li>
+  <li>ID定义是“#”开始的</li>
+  <li>#p { 属性:属性值 ；属性1:属性值1 }
+    <h3 id="优先级问题">优先级问题</h3>
+  </li>
+  <li>1.ID&gt;Class&gt;HTML</li>
+  <li>2.同级时选择离元素最近的一个的
+    <ul>
+      <li>#p { color: red }</li>
+    </ul>
+  </li>
+</ul>
+
+<p>#p { color: #f60 }
+    * 执行颜色为#f60的</p>
+<h3 id="组合选择器同时控制多个元素">组合选择器（同时控制多个元素）</h3>
+<ul>
+  <li>h1,h2,h3 { font-size: 14px; color: red;  }</li>
+  <li>选择器组合可以使用“,”隔开
+    <h3 id="伪元素选择器">伪元素选择器</h3>
+  </li>
+  <li>1.a:link
+    <ul>
+      <li>正常连接的样式</li>
+    </ul>
+  </li>
+  <li>2.a:hover
+    <ul>
+      <li>鼠标放上去的样式</li>
+    </ul>
+  </li>
+  <li>3.a:active
+    <ul>
+      <li>选择链接时的样式</li>
+    </ul>
+  </li>
+  <li>4.a:visited
+    <ul>
+      <li>已经访问过的链接的样式
+        <h2 id="3常见属性">3.常见属性</h2>
+        <h3 id="1颜色属性">1.颜色属性</h3>
+      </li>
+    </ul>
+  </li>
+  <li>color属性定义文本的颜色</li>
+  <li>color：green</li>
+  <li>color：#ff6600</li>
+  <li>color：#f60
+    <ul>
+      <li>简写式</li>
+    </ul>
+  </li>
+  <li>color：rgb（255,255,255）
+    <ul>
+      <li>红(R)、绿(G)、蓝(B) 每个的取值范围0~255</li>
+    </ul>
+  </li>
+  <li>color：rgba（255,255,255,1）
+    <ul>
+      <li>RGBA是代表Red（红色） Green（绿色） Blue（蓝色）和 Alpha的(色彩空间)透明度
+        <h3 id="2字体属性">2.字体属性</h3>
+      </li>
+    </ul>
+  </li>
+  <li>1.font-size 字体大小
+    <ul>
+      <li>font-size:14px；1em为1正常字体</li>
+    </ul>
+  </li>
+  <li>2.font-family 定义字体
+    <ul>
+      <li>font-family：微软雅黑，serif；sans-serif无衬线字体;(使用等宽字体)</li>
+      <li>可以使用“，”隔开，以确保当字体不存在的时候直接使用下一个</li>
+    </ul>
+  </li>
+  <li>3.font-weight 字体加粗
+    <ul>
+      <li>normal(默认值)、bold(粗)、bolder(更粗)、lighter(更细)</li>
+      <li>100、200、300~900
+        <ul>
+          <li>400 = normal，而 700 = bold
+            <h3 id="3背景属性">3.背景属性</h3>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>1.背景颜色 background-color</li>
+  <li>2.背景图片 background-image
+    <ul>
+      <li>background-image:url(图片路径)</li>
+      <li>background-image:none</li>
+    </ul>
+  </li>
+  <li>3.背景重复 background-repeat
+    <ul>
+      <li>repeat
+        <ul>
+          <li>重复平铺满</li>
+        </ul>
+      </li>
+      <li>repeat-x
+        <ul>
+          <li>向Y轴重复</li>
+        </ul>
+      </li>
+      <li>repeat-y
+        <ul>
+          <li>向Y轴重复</li>
+        </ul>
+      </li>
+      <li>no-repeat
+        <ul>
+          <li>不重复</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>4.背景位置 background-position
+    <ul>
+      <li>横向（left,center,right）</li>
+      <li>纵向（top,center,bottom）</li>
+    </ul>
+  </li>
+  <li>简写方式
+    <ul>
+      <li>background:背景颜色 url(图像) 重复 位置</li>
+      <li>background:#f60 url(images/bg,jpg) no-repeat top center
+        <h3 id="4文本属性">4.文本属性</h3>
+      </li>
+    </ul>
+  </li>
+  <li>1.text-align  横向排列
+    <ul>
+      <li>left，center，right</li>
+    </ul>
+  </li>
+  <li>2.line-height 文本行高
+    <ul>
+      <li>1.%基于字体大小的百分比行高</li>
+      <li>2.数值 来设置固定值</li>
+    </ul>
+  </li>
+  <li>3.text-indent 首行缩进</li>
+  <li>4.letter-spacing 字符间距
+    <ul>
+      <li>1.normal 默认</li>
+      <li>
+        <ol>
+          <li>length设置具体的数值（可以设置负值）</li>
+        </ol>
+      </li>
+      <li>
+        <ol>
+          <li>inherit 继承
+            <h3 id="5边框属性">5.边框属性</h3>
+          </li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+  <li>1.边框风格 border-style
+    <ul>
+      <li>统一风格（简写风格）
+        <ul>
+          <li>border-style</li>
+        </ul>
+      </li>
+      <li>单独定义某一方向的边框样式
+        <ul>
+          <li>border-bottom-style 下边边框样式</li>
+          <li>border-top-style 上边边框样式</li>
+          <li>border-left-style 左边边框样式</li>
+          <li>border-right-style 右边边框样式</li>
+        </ul>
+      </li>
+      <li>边框风格样式的属性值
+        <ul>
+          <li>1、none 无边框</li>
+          <li>2、solid  直线边框</li>
+          <li>3、dashed  虚线边框</li>
+          <li>4、dotted 点状边框</li>
+          <li>5、double  双线边框</li>
+          <li>6、groove 凸槽边框</li>
+          <li>7、ridge 垄状边框</li>
+          <li>8、inset inset边框</li>
+          <li>9、outset outset边框</li>
+          <li>10、inherit继承</li>
+          <li>概要: 依托border-color的属性值</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>2.边框宽度 border-width
+    <ul>
+      <li>统一风格
+        <ul>
+          <li>border-width：</li>
+        </ul>
+      </li>
+      <li>单独风格
+        <ul>
+          <li>border-top-width 上边边框宽度</li>
+          <li>border-bottom-width 下边边框宽度</li>
+          <li>border-left-width 左边边框宽度</li>
+          <li>border-right-width 右边边框宽度</li>
+        </ul>
+      </li>
+      <li>边框宽度的属性值：
+        <ul>
+          <li>1、thin 细边框</li>
+          <li>2、medium 中等边框</li>
+          <li>3、thick 粗边框</li>
+          <li>4、px  固定值的边框</li>
+          <li>5、inherit继承</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>3.边框颜色 border-color
+    <ul>
+      <li>统一风格
+        <ul>
+          <li>border-color</li>
+        </ul>
+      </li>
+      <li>单独风格
+        <ul>
+          <li>border-top-color 上边边框颜色</li>
+          <li>border-bottom-color 下边边框颜色</li>
+          <li>border-left-color 左边边框颜色</li>
+          <li>border-right-color 右边边框颜色</li>
+        </ul>
+      </li>
+      <li>属性值
+        <ul>
+          <li>1、颜色值的名称
+            <ul>
+              <li>red、green</li>
+            </ul>
+          </li>
+          <li>RGB
+            <ul>
+              <li>rgb(255,255,0)</li>
+            </ul>
+          </li>
+          <li>RGBA
+            <ul>
+              <li>rgba(255,255,0,0.1)</li>
+            </ul>
+          </li>
+          <li>十六位进制
+            <ul>
+              <li>#ff0、#ff0000</li>
+            </ul>
+          </li>
+          <li>继承inherit</li>
+        </ul>
+      </li>
+      <li>属性值的四种情况
+        <ul>
+          <li>一个值：border-color：（上、下、左、右）；</li>
+          <li>两个值：border-color：（上下） （左右）；</li>
+          <li>三个值：border-color:（上） （左、右） （下）;</li>
+          <li>四个值：border-color：（上）（右）（下）（左）;</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>简写方式
+    <ul>
+      <li>border：solid 2px #f60
+        <h3 id="6列表属性">6.列表属性</h3>
+      </li>
+    </ul>
+  </li>
+  <li>1.标记的类型
+    <ul>
+      <li>list-style-type
+        <ul>
+          <li>none	无标记。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>disc	默认。标记是实心圆。</p>
+
+<p>circle	标记是空心圆。</p>
+
+<p>square	标记是实心方块。</p>
+
+<p>decimal	标记是数字。</p>
+
+<p>decimal-leading-zero	0开头的数字标记。(01, 02, 03, 等。)</p>
+
+<p>lower-roman  	小写罗马数字(i, ii, iii, iv, v, 等。)</p>
+
+<p>upper-roman	大写罗马数字(I, II, III, IV, V, 等。)</p>
+
+<p>lower-alpha 	小写英文字母The marker is lower-alpha (a, b, c, d, e, 等。)</p>
+
+<p>upper-alpha 	大写英文字母The marker is upper-alpha (A, B, C, D, E, 等。)</p>
+
+<p>lower-greek	 小写希腊字母(alpha, beta, gamma, 等。)</p>
+
+<p>lower-latin	小写拉丁字母(a, b, c, d, e, 等。)</p>
+
+<p>upper-latin	大写拉丁字母(A, B, C, D, E, 等。)</p>
+
+<p>hebrew	  传统的希伯来编号方式</p>
+
+<p>armenian	传统的亚美尼亚编号方式</p>
+
+<p>georgian	传统的乔治亚编号方式(an, ban, gan, 等。)</p>
+
+<p>cjk-ideographic	简单的表意数字</p>
+
+<p>hiragana	标记是：a, i, u, e, o, ka, ki, 等。（日文片假名）</p>
+
+<p>katakana	标记是：A, I, U, E, O, KA, KI, 等。（日文片假名）</p>
+
+<p>hiragana-iroha	标记是：i, ro, ha, ni, ho, he, to, 等。（日文片假名）</p>
+
+<p>katakana-iroha	标记是：I, RO, HA, NI, HO, HE, TO, 等。（日文片假名）</p>
+<ul>
+  <li>2.标记的位置
+    <ul>
+      <li>list-style-position
+        <ul>
+          <li>inside	列表项目标记放置在文本以内，且环绕文本根据标记对齐。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>outside	默认值。保持标记位于文本的左侧。列表项目标记放置在文本以外，且环绕文本不根据标记对齐。</p>
+
+<p>inherit	规定应该从父元素继承 list-style-position 属性的值。</p>
+<ul>
+  <li>3.设置图像列表标记
+    <ul>
+      <li>list-style-image
+        <ul>
+          <li>URL	图像的路径。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>none	默认。无图形被显示。</p>
+
+<p>inherit	规定应该从父元素继承 list-style-image 属性的值。</p>
+<ul>
+  <li>4.简写方式
+    <ul>
+      <li>list-style
+        <ul>
+          <li>list-style:square inside url(‘/i/arrow.jpg’);
+            <h2 id="4divcss布局">4.DIV+CSS布局</h2>
+            <h3 id="1div和span">1.div和span</h3>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>DIV和SPAN在整个HTML标记中，没有任何意义，他们的存在就是为了应用CSS样式</li>
+  <li>DIV和span的区别在与，span是内联元素，div是块级元素
+    <h3 id="2盒模型">2.盒模型</h3>
+  </li>
+  <li>margin
+    <ul>
+      <li>盒子外边距</li>
+    </ul>
+  </li>
+  <li>padding
+    <ul>
+      <li>盒子内边距</li>
+    </ul>
+  </li>
+  <li>border
+    <ul>
+      <li>盒子边框宽度</li>
+    </ul>
+  </li>
+  <li>width
+    <ul>
+      <li>盒子宽度</li>
+    </ul>
+  </li>
+  <li>height
+    <ul>
+      <li>盒子高度
+        <h3 id="3布局相关的属性">3.布局相关的属性</h3>
+      </li>
+    </ul>
+  </li>
+  <li>1.position 定位方式
+    <ul>
+      <li>1.正常定位
+        <ul>
+          <li>relative</li>
+        </ul>
+      </li>
+      <li>2.根据父元素进行定位
+        <ul>
+          <li>absolute</li>
+        </ul>
+      </li>
+      <li>3.根据浏览器窗口进行定位
+        <ul>
+          <li>fixed</li>
+        </ul>
+      </li>
+      <li>4.没有定位
+        <ul>
+          <li>static</li>
+        </ul>
+      </li>
+      <li>5.继承inherit</li>
+    </ul>
+  </li>
+  <li>2.定位
+    <ul>
+      <li>left（左），right（右），top（上），bottom（下）离页面顶点的距离</li>
+    </ul>
+  </li>
+  <li>3.z-index 层覆盖先后顺序（优先级）</li>
+  <li>4.display 显示属性
+    <ul>
+      <li>display：none
+        <ul>
+          <li>层不显示</li>
+        </ul>
+      </li>
+      <li>display：block
+        <ul>
+          <li>块状显示，在元素后面换行，显示下一个块元素</li>
+        </ul>
+      </li>
+      <li>display：inline
+        <ul>
+          <li>内联显示，多个块可以显示在一行内</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>5.float 浮动属性
+    <ul>
+      <li>left 左浮动</li>
+      <li>right 右浮动</li>
+    </ul>
+  </li>
+  <li>6.clear 清除浮动
+    <ul>
+      <li>clear：both</li>
+    </ul>
+  </li>
+  <li>7.overflow 溢出处理
+    <ul>
+      <li>hidden 隐藏超出层大小的内容</li>
+      <li>scroll无论内容是否超出层大小都添加滚动条</li>
+      <li>auto 超出时自动添加滚动条
+        <h3 id="4兼容问题及高效开发工具">4.兼容问题及高效开发工具</h3>
+      </li>
+    </ul>
+  </li>
+  <li>1.兼容性测试工具
+    <ul>
+      <li>1、IE Tester</li>
+      <li>2、Multibrowser</li>
+    </ul>
+  </li>
+  <li>2.常用的浏览器
+    <ul>
+      <li>1、Google chrome</li>
+      <li>2、Firefox</li>
+      <li>3、opera</li>
+    </ul>
+  </li>
+  <li>3.高效的开发工具
+    <ul>
+      <li>轻量级的
+        <ul>
+          <li>1.Notepad++</li>
+          <li>2.sbulime Text</li>
+          <li>3.Hbuilder</li>
+        </ul>
+      </li>
+      <li>重量级的
+        <ul>
+          <li>1.WebStorm</li>
+          <li>2.Dreamweaver</li>
+        </ul>
+      </li>
+      <li>概要: 根据自己的需要来选择</li>
+    </ul>
+  </li>
+  <li>4.网页设计工具
+    <ul>
+      <li>1.fireworks</li>
+      <li>2.photoshop</li>
+    </ul>
+  </li>
+  <li>5.判断IE的方法
+    <ul>
+      <li>条件判断格式
+        <ul>
+          <li>
+            <!--[if 条件 版本]> 那么显示 <![endif]-->
+          </li>
+        </ul>
+      </li>
+      <li>不等于
+        <ul>
+          <li>[if !IE 8]
+            <ul>
+              <li>除了IE8都可以显示</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>小于
+        <ul>
+          <li>[if lt IE 5.5]</li>
+          <li>如果IE浏览器版本小于5.5的显示</li>
+        </ul>
+      </li>
+      <li>大于
+        <ul>
+          <li>[if gt IE 5]</li>
+          <li>如果IE浏览器版本大于5的显示</li>
+        </ul>
+      </li>
+      <li>小于或者等于
+        <ul>
+          <li>[if lte IE 6]</li>
+          <li>如果IE浏览器版本小于6的显示</li>
+        </ul>
+      </li>
+      <li>大于或等于
+        <ul>
+          <li>[if gte IE 7]</li>
+          <li>如果IE浏览器版本小于7的显示</li>
+        </ul>
+      </li>
+      <li>大于和小于之间
+        <ul>
+          <li>[if (gt IE 5)&amp;(lt IE 7)]</li>
+          <li>如果IE浏览器版本大于IE5小于7的显示</li>
+        </ul>
+      </li>
+      <li>或
+        <ul>
+          <li>
+            <table>
+              <tbody>
+                <tr>
+                  <td>[if (IE 6)</td>
+                  <td>(IE 7)]</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+          <li>如果是IE6或者IE7显示</li>
+        </ul>
+      </li>
+      <li>仅
+        <ul>
+          <li>&lt;!–[if IE 8]&gt;</li>
+          <li>如果是IE8</li>
+        </ul>
+      </li>
+      <li>概要: 注意：条件注释只有在IE浏览器下才能执行，这样就达到了我们的效果！
+        <h3 id="6divcss网页布局实战">6.《DIV+CSS网页布局实战》</h3>
+      </li>
+    </ul>
+  </li>
+  <li>分析+切图+搭建框架</li>
+  <li>循序渐进&gt;解决兼容&gt;大功告成</li>
+</ul>
+
+<p><em>XMind: ZEN - Trial Version</em></p>

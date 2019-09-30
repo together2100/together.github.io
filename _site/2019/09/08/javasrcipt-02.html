@@ -1,0 +1,89 @@
+<h2 id="javasrcipt">JavaSrcipt</h2>
+
+<p>### 迭代方法<br />
+  every() 对数组中的每一项运行给定函数，如果该函数对每一项都返回true，则返回true。<br />
+  filter() 对数组中的每一项运行给定函数，返回该函数会返回true的项组成的数组。<br />
+  forEach() 对数组中的每一项运行给定函数，这个方法没有返回值<br />
+  map() 对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组<br />
+  some() 对数组中的每一项运行给定函数，如果该函数对任一项返回true，则返回true <br />
+  以上方法都不会修改数组中包含的值<br />
+  不知道它们有什么用</p>
+
+<p>### 缩小数组的方法<br />
+  reduce()  从数组的第一项开始，逐个遍历到最后<br />
+  reduceRight() 从数组的最后一项开始，向前遍历到第一项<br />
+  这两个方法都会迭代数组的所有项，构建一个最终返回的值</p>
+
+<h3 id="date-类型">Date 类型</h3>
+<p>Date类型使用UTC(国际协调时间)<br />
+要创建一个日期对象使用new操作符和Date构造函数<br />
+var time = new Date();<br />
+Date类型重写了toLocaleString() toString() 和 alueOf() 方法<br />
+toLocaleString() 方法会按照浏览器设置的地区适应的格式返回日期和时间</p>
+
+<h3 id="日期格式化的方法">日期格式化的方法</h3>
+<p>toDateString()  显示星期几、月、日和年<br />
+toTimeString() 显示 时、分、秒、时区<br />
+toLocaleDateString() 显示星期几、月、日、年<br />
+toLocaleTimeString() 显示 时、分、秒<br />
+toUTCString() 完整的UTC日期</p>
+
+<h3 id="regexp类型">RegExp类型</h3>
+<p>支持正则表达式<br />
+g 表示全局模式，被应用于所有字符串<br />
+i 表示不区分大小写 <br />
+m 表示多行 <br />
+例： 匹配字符串和宗所有at<br />
+var pattern1 = /at/g ;<br />
+匹配第一个bat或cat 不区分大小写<br />
+var pattern2 = /[bc]at/i ;
+匹配所有以at结尾的3个字符的组合，不区分大小写<br />
+var pattern3 = /.at/gi ;</p>
+
+<h3 id="js正则表达式方法有6个">js正则表达式方法有6个</h3>
+<p>字符串对象方法4个 search() match() replace() split()<br />
+search() : 返回下标 如果没有找到匹配就返回-1</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var str = 'abc123asd12';  
+var pattern = /[\d]+/ ; 一般不用全局属性g  
+console.log(str.search(pattern));
+返回结果为3 
+</code></pre></div></div>
+<p>match() 以数组的形式返回匹配的正则文本，没有则返回null</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var str = 'abc123asd12';  
+var pattern = /[\d]+/g ; 
+console.log(str.match(pattern));
+返回结果为123 12
+</code></pre></div></div>
+<p>split() 返回划分后的数组,将一个字符串分割成子字符串，然后将结果作为字符串数组返回。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var str = 'Jenny,Max,Jason,Heliy'
+var pattern = /,/
+console.log(str.split(pattern))  
+//返回结果为：["Jenny", "Max", "Jason", "Heliy"]
+</code></pre></div></div>
+<p>replace()：指定的字符串被替换为另一字符串，然后将结果作为字符串返回。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var str = 'abd123tr12'
+var pattern = /[\d]+/g
+console.log(str.replace(pattern,'Jenny'))
+//返回结果为：abdJennytrJenny
+</code></pre></div></div>
+<p>正则表达式对象的方法有2个：test()、exec()<br />
+test() 返回true false</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//验证邮箱的合法性
+var string = '1053497171@qq.com';
+var pattern= /^[a-zA-Z0-9\.\-\+\_]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/
+console.log(pattern.test(string))
+//返回结果为：true
+</code></pre></div></div>
+<p>exec()  用于检索字符串中正则表达式的匹配。返回一个数组存放匹配结果，如果未找到则返回null<br />
+exec()是一个稍微有点复杂的函数<br />
+最简单的用法，与字符串对象方法match()返回的数组相同</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var str = 'I wanted to be the man that made you happy'
+var pattern = /ma/
+console.log(pattern.exec(str))
+//返回结果：["ma", index: 19, input: "I wanted to be the man that made you happy"]
+console.log(pattern.exec(str)[0]) //ma
+console.log(pattern.exec(str).index)  //9
+console.log(pattern.exec(str).input)  //I wanted to be the man that made you happy
+</code></pre></div></div>
+<p>exec()的返回值除了匹配到的数组外还有另外两个属性，index匹配文本的第一个字符串的位置，input被检索的字符串</p>
+

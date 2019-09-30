@@ -1,0 +1,97 @@
+<h3 id="js发展">js发展</h3>
+<p>95年网景公司有个叫Brendan Eich的兄弟设计了javaScript<br />
+为了定制标准，几个公司联合ECMA， 成为了ECMAScript标准<br />
+应为JavaScript是网景注册的。</p>
+
+<h3 id="js快速入门">js快速入门</h3>
+<p>JavaScript代码可以直接嵌在网页的任何地方，不过通常我们都把JavaScript代码放到&lt;body&gt;后面<br />
+第二种方法是把JavaScript代码放到一个单独的.js文件，然后在HTML中通过<script src="..."></script>引入这个文件<br />
+操作字符串<br />
+toUpperCase()把一个字符串全部变为大写<br />
+toLowerCase()把一个字符串全部变为小写<br />
+indexOf()会搜索指定字符串出现的位置<br />
+substring()返回指定索引区间的子串  .
+.
+数组操作<br />
+与String类似，Array也可以通过indexOf()来搜索一个指定的元素的位置<br />
+slice()就是对应String的substring()版本，它截取Array的部分元素，然后返回一个新的Array<br />
+push()向Array的末尾添加若干元素<br />
+pop()则把Array的最后一个元素删除掉<br />
+如果要往Array的头部添加若干元素，使用unshift()方法<br />
+shift()方法则把Array的第一个元素删掉<br />
+sort()可以对当前Array进行排序，它会直接修改当前Array的元素位置，直接调用时，按照默认顺序排序<br />
+reverse()把整个Array的元素给掉个个，也就是反转<br />
+splice()方法是修改Array的“万能方法”，它可以从指定的索引开始删除若干元素，然后再从该位置添加若干元素<br />
+concat()方法把当前的Array和另一个Array连接起来，并返回一个新的Array<br />
+join()方法是一个非常实用的方法，它把当前Array的每个元素都用指定的字符串连接起来，然后返回连接后的字符串</p>
+
+<p>对象操作<br />
+实际上JavaScript对象的所有属性都是字符串，不过属性对应的值可以是任意数据类型<br />
+如果访问一个不存在的属性会返回什么呢？JavaScript规定，访问不存在的属性不报错，而是返回undefined<br />
+for循环的一个变体是for … in循环，它可以把一个对象的所有属性依次循环出来</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var o = {
+    name: 'Jack',
+    age: 20,
+    city: 'Beijing'
+};
+for (var key in o) {
+    console.log(key); // 'name', 'age', 'city'
+}
+</code></pre></div></div>
+<h3 id="高阶函数">高阶函数</h3>
+<p>JavaScript的函数其实都指向某个变量。既然变量可以指向函数，函数的参数能接收变量，那么一个函数就可以接收另一个函数作为参数，这种函数就称之为高阶函数</p>
+
+<p>map
+map()方法定义在JavaScript的Array中，我们调用Array的map()方法，传入我们自己的函数，就得到了一个新的Array作为结果</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function pow(x) {
+    return x * x;
+}
+var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+var results = arr.map(pow); // [1, 4, 9, 16, 25, 36, 49, 64, 81]
+console.log(results);
+</code></pre></div></div>
+<p>map()传入的参数是pow，即函数对象本身</p>
+
+<p>reduce 
+Array的reduce()把一个函数作用在这个Array的[x1, x2, x3…]上，这个函数必须接收两个参数，reduce()把结果继续和序列的下一个元素做累积计算，其效果就是
+[x1, x2, x3, x4].reduce(f) = f(f(f(x1, x2), x3), x4)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var arr = [1, 3, 5, 7, 9];
+arr.reduce(function (x, y) {
+    return x + y;
+}); // 25
+</code></pre></div></div>
+
+<p>filter<br />
+和map()不同的是，filter()把传入的函数依次作用于每个元素，然后根据返回值是true还是false决定保留还是丢弃该元素
+例如，在一个Array中，删掉偶数，只保留奇数，可以这么写：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var arr = [1, 2, 4, 5, 6, 9, 10, 15];
+var r = arr.filter(function (x) {
+    return x % 2 !== 0;
+});
+r; // [1, 5, 9, 15]
+</code></pre></div></div>
+<p>可见用filter()这个高阶函数，关键在于正确实现一个“筛选”函数
+filter()接收的回调函数，其实可以有多个参数。通常我们仅使用第一个参数，表示Array的某个元素。回调函数还可以接收另外两个参数，表示元素的位置和数组本身：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var arr = ['A', 'B', 'C'];
+var r = arr.filter(function (element, index, self) {
+    console.log(element); // 依次打印'A', 'B', 'C'
+    console.log(index); // 依次打印0, 1, 2
+    console.log(self); // self就是变量arr
+    return true;
+});
+</code></pre></div></div>
+<p>every
+every()方法可以判断数组的所有元素是否满足测试条件</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var arr = ['Apple', 'pear', 'orange'];
+console.log(arr.every(function (s) {
+    return s.length &gt; 0;
+})); // true, 因为每个元素都满足s.length&gt;0
+
+console.log(arr.every(function (s) {
+    return s.toLowerCase() === s;
+})); // false, 因为不是每个元素都全部是小写
+</code></pre></div></div>
+<p>find()方法用于查找符合条件的第一个元素，如果找到了，返回这个元素，否则，返回undefined
+findIndex()和find()类似，也是查找符合条件的第一个元素，不同之处在于findIndex()会返回这个元素的索引，如果没有找到，返回-1
+forEach()  它把每个元素依次作用于传入的函数，但不会返回新的数组。forEach()常用于遍历数组，因此，传入的函数不需要返回值</p>
+
