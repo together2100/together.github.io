@@ -1,0 +1,103 @@
+<h1 id="composer-使用">Composer 使用</h1>
+<p>首先 需要在项目目录下创建一个composer.json文件
+文件格式</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "require": {
+        "monolog/monolog": "1.2.*"
+    }
+}
+</code></pre></div></div>
+<p>以上文件说明我们需要下载从 1.2 开始的任何版本的 monolog。
+接下来只要运行以下命令即可安装依赖包：</p>
+<h3 id="安装依赖包">安装依赖包</h3>
+<p>composer install</p>
+<h1 id="require-命令">require 命令</h1>
+<p>除了使用 install 命令外，我们也可以使用 require 命令快速的安装一个依赖而不需要手动在 composer.json 里添加依赖信息：
+ composer require monolog/monolog</p>
+
+<p>Composer 会先找到合适的版本，然后更新composer.json文件，在 require 那添加 monolog/monolog 包的相关信息，再把相关的依赖下载下来进行安装，最后更新 composer.lock 文件并生成 php 的自动加载文件</p>
+<h1 id="update-命令">update 命令</h1>
+<p>update 命令用于更新项目里所有的包，或者指定的某些包：</p>
+<h3 id="更新所有依赖">更新所有依赖</h3>
+<p>$ composer update</p>
+<h3 id="更新指定的包">更新指定的包</h3>
+<p>$ composer update monolog/monolog</p>
+<h3 id="更新指定的多个包">更新指定的多个包</h3>
+<p>$ composer update monolog/monolog symfony/dependency-injection</p>
+<h3 id="还可以通过通配符匹配包">还可以通过通配符匹配包</h3>
+<p>$ composer update monolog/monolog symfony/*</p>
+<h2 id="注意">注意</h2>
+<p>升级的版本会受到版本约束，包不会升级到超出约束的版本的范围。例如如果 composer.json 里包的版本约束为 ^1.10，而最新版本为 2.0。那么 update 命令是不能把包升级到 2.0 版本的，只能最高升级到 1.x 版本。</p>
+
+<h1 id="remove-命令">remove 命令</h1>
+<p>remove 命令用于移除一个包及其依赖（在依赖没有被其他包使用的情况下），如果依赖被其他包使用，则无法移除：
+composer remove monolog/monolog</p>
+
+<h1 id="search-命令">search 命令</h1>
+<p>composer search monolog<br />
+该命令会输出包及其描述信息，如果只想输出包名可以使用 –only-name 参数：<br />
+ composer search –only-name monolog</p>
+<h1 id="show-命令">show 命令</h1>
+
+<h3 id="列出所有已经安装的包">列出所有已经安装的包</h3>
+<p>$ composer show</p>
+<h3 id="可以通过通配符进行筛选">可以通过通配符进行筛选</h3>
+<p>$ composer show monolog/*</p>
+<h3 id="显示具体某个包的信息">显示具体某个包的信息</h3>
+<p>$ composer show monolog/monolog</p>
+
+<h1 id="精确版本">精确版本</h1>
+<p>我们可以告诉 Composer 安装的具体版本，例如：1.0.2，指定 1.0.2 版本。
+范围
+通过使用比较操作符来指定包的范围。这些操作符包括：&gt;，&gt;=，&lt;，&lt;=，!=。
+你可以定义多个范围，使用空格或者逗号 , 表示逻辑上的与，使用双竖线 || 表示逻辑上的或。其中与的优先级会大于或。 实例：
+ <code class="highlighter-rouge">&gt;=1.0</code>
+` &gt;=1.0 &lt;2.0<code class="highlighter-rouge">
+ </code>&gt;=1.0 &lt;1.1 || &gt;=1.2`</p>
+
+<h3 id="通配符">通配符</h3>
+<p>可以使用通配符来设置版本。1.0.*相当于&gt;=1.0 &lt;1.1。</p>
+
+<h3 id="波浪号-">波浪号 ~</h3>
+<p>我们先通过后面这个例子去解释~操作符的用法：~1.2相当于&gt;=1.2 &lt;2.0.0，而~1.2.3相当于&gt;=1.2.3 &lt;1.3.0。对于使用Semantic Versioning作为版本号标准的项目来说，这种版本约束方式很实用。例如~1.2定义了最小的小版本号，然后你可以升级2.0以下的任何版本而不会出问题，因为按照Semantic Versioning的版本定义，小版本的升级不应该有兼容性的问题。简单来说，~定义了最小的版本，并且允许版本的最后一位版本号进行升级（没懂得话，请再看一边前面的例子）。
+例子：~1.2</p>
+<h4 id="注意-1">注意</h4>
+<p>如果~作用在主版本号上，例如~1，按照上面的说法，Composer可以安装版本1以后的主版本，但是事实上是~1会被当作~1.0对待，只能增加小版本，不能增加主版本。</p>
+
+<h3 id="折音号-">折音号 ^</h3>
+<p>^操作符的行为跟Semantic Versioning有比较大的关联，它允许升级版本到安全的版本。例如，^1.2.3相当于&gt;=1.2.3 &lt;2.0.0，因为在2.0版本前的版本应该都没有兼容性的问题。而对于1.0之前的版本，这种约束方式也考虑到了安全问题，例如^0.3会被当作&gt;=0.3.0 &lt;0.4.0对待。
+例子：^1.2.3</p>
+
+<h1 id="版本稳定性">版本稳定性</h1>
+<p>如果你没有显式的指定版本的稳定性，Composer会根据使用的操作符，默认在内部指定为-dev或者-stable</p>
+
+<p>如果你想指定版本只要稳定版本，你可以在版本后面添加后缀-stable。
+minimum-stability 配置项定义了包在选择版本时对稳定性的选择的默认行为。默认是stable。它的值如下（按照稳定性排序）：dev，alpha，beta，RC和stable。除了修改这个配置去修改这个默认行为，我们还可以通过稳定性标识（例如@stable和@dev）来安装一个相比于默认配置不同稳定性的版本。例如：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "require": {
+        "monolog/monolog": "1.0.*@beta",
+        "acme/foo": "@dev"
+    }
+}
+</code></pre></div></div>
+<h1 id="版本格式主版本号次版本号修订号版本号递增规则如下">版本格式：主版本号.次版本号.修订号，版本号递增规则如下：</h1>
+<p>主版本号：当你做了不兼容的 API 修改，
+次版本号：当你做了向下兼容的功能性新增，
+修订号：当你做了向下兼容的问题修正。</p>
+
+<p>先行版本号及版本编译元数据可以加到“主版本号.次版本号.修订号”的后面，作为延伸。</p>
+
+<p>~表示版本号只能改变最末尾那段（如果是 ~x.y 末尾就是 y，如果是 ~x.y.z 末尾就是 z）
+~1.2.3 代表 1.2.3 &lt;= 版本号 &lt; 1.3.0
+~1.2   代表  1.2 &lt;= 版本号 &lt;2.0</p>
+
+<p>^表示除了大版本号以外，小版本号和补丁版本号都可以变
+^1.2.3 代表 1.2.3 &lt;= 版本号 &lt; 2.0.0</p>
+
+<p>特殊情况0开头的版本号：
+^0.3.0 等于 0.3.0 &lt;= 版本号 &lt;0.4.0  注意：不是 &lt;1.0.0
+因为：semantic versioning 的规定是，大版本号以 0 开头表示这是一个非稳定版本（unstable），如果处于非稳定状态，小版本号是允许不向下兼容的，
+所以如果你要指定 0 开头的库那一定要注意：
+危险写法：~0.1 等于 0.1.0 &lt;= 版本号 &lt;1.0.0
+保险写法：^0.1 等于 0.1.0 &lt;= 版本号 &lt;0.2.0</p>
+

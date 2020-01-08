@@ -1,0 +1,137 @@
+<p># Bootstrap 安装<br />
+只需要它的样式文件， 找到dist文件夹下的css，js，font，把它们复制到你的项目里<br />
+通过导入就可以调用了。</p>
+
+<h1 id="bootstrap-使用">Bootstrap 使用</h1>
+<p>container 内容容器<br />
+头部必须有 <meta name="viewport" content="width=device-width, initial-scale=1.0" /><br />
+这句代码意思是让移动设备优先。</p>
+
+<h2 id="栅格">栅格</h2>
+<p>系统最大自动分为12列</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div class= "col-lg-1 "&gt;1&lt;/div&gt; 一行最多显示12个，多出来的会排到下一行
+</code></pre></div></div>
+<p>col-lg  &gt; 1200px宽度<br />
+col-md &gt; 992px宽度<br />
+col-sm &gt; 750px宽度<br />
+col-sx &lt; 750px 宽度</p>
+<h3 id="col-lg-1-col-lg-2-col-lg-3-后面的数字代表占的格子数量一行最多占12超过的换到下行">col-lg-1 col-lg-2 col-lg-3 后面的数字代表占的格子数量，一行最多占12，超过的，换到下行</h3>
+
+<h2 id="对齐方式">对齐方式</h2>
+<p>text-left 左对齐<br />
+text-right 右对齐<br />
+text-center居中对齐<br />
+text-justify 超出屏幕部分自动换行<br />
+text-nowrap 超出屏幕部分不换行</p>
+<h2 id="设置文字">设置文字</h2>
+<p>text-lowercase 文本小写<br />
+text-uppercase 文本大写<br />
+text-capitalize 单词首字母大写</p>
+
+<h2 id="强调文字设置">强调文字设置</h2>
+<p>text-muted:提示,使用浅灰色(#999)<br />
+text-primary:主要,使用蓝色(#428bca)<br />
+text-success:成功,使用浅绿色(#3c763d)<br />
+text-info:通知信息,使用浅蓝色(#31708f)<br />
+text-warning:警告,使用黄色(#8a6d3b)<br />
+text-danger:危险,使用褐色(#a94442)</p>
+
+<h2 id="浮动">浮动</h2>
+<p>pull-left 左浮动<br />
+pull-right 右浮动<br />
+clearfix 清除浮动</p>
+
+<h1 id="表格属性">表格属性</h1>
+<p>table-striped 斑马形式条纹（隔行变色）<br />
+table-bordered  为所有表格的单元格添加边框？<br />
+table-hover  在 任一行启用鼠标悬停状态<br />
+table-condensed  让表格更加紧凑</p>
+
+<h2 id="tr-td-th">tr td th</h2>
+<p>active 将悬停的颜色应用在行或者单元格上  <br />
+  success 表示成功的操作<br />
+  info   表示信息变化的操作<br />
+warning  表示一个警告的操作<br />
+danger   表示一个危险的操作</p>
+
+<h1 id="表单">表单</h1>
+<p>form-group 分组
+form-horizontal 水平表单
+control-label</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;form action="" role="form"&gt;
+&lt;div class="form-group"&gt;
+		&lt;label for="name"&gt;用户名：&lt;/label&gt;
+        &lt;input type="text" class="form-control" name="name"&gt;
+&lt;/div&gt;
+</code></pre></div></div>
+<h2 id="按钮">按钮</h2>
+
+<h2 id="按钮组">按钮组</h2>
+<p>button data-toggle = “dropdown” <br />
+ul class = “dropdown-menu”</p>
+
+<h2 id="字体图标">字体图标</h2>
+
+<h2 id="img">img</h2>
+
+<h2 id="背景">背景</h2>
+
+<h1 id="js-文件引入顺序--先导入jq再导入js不然会报错">JS 文件引入顺序  先导入JQ，再导入JS，不然会报错。</h1>
+
+<h2 id="插件-模态框">插件 模态框</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;button class="btn btn-success" data-target="#mymodal" data-toggle="modal"&gt;
+           添加收获地址
+        &lt;/button&gt;
+        &lt;!-- 模态框主体 --&gt;
+        &lt;div id="mymodal" class="modal"&gt; --&gt;
+             &lt;div class="modal-dialog"&gt;
+                &lt;div class="modal-content"&gt;
+                    &lt;div class="modal-header"&gt;
+                        &lt;!-- data-dismiss 关闭模态框 --&gt;
+                        &lt;button class="close" data-dismiss="modal"&gt;&amp;times;&lt;/button&gt;
+                        &lt;h3&gt;添加收货地址&lt;/h3&gt;
+                    &lt;/div&gt;
+                    &lt;div class="modal-body"&gt;
+                        &lt;form action=""&gt;
+                            &lt;div class="form-group"&gt;
+                                &lt;label for="shouhuoren"&gt;收货人&lt;/label&gt;
+                                &lt;input type="text" class="form-control" id="shouhuoren"&gt;
+                            &lt;/div&gt;
+                            &lt;div class="form-group"&gt;
+                                    &lt;label for="tel"&gt;电话&lt;/label&gt;
+                                    &lt;input type="text" class="form-control" id="tel"&gt;
+                                &lt;/div&gt;
+                                &lt;div class="form-group"&gt;
+                                        &lt;label for="address"&gt;地址&lt;/label&gt;
+                                        &lt;select name="" id="address"&gt;
+                                            &lt;option value=""&gt;--请选择--&lt;/option&gt;
+                                        &lt;/select&gt;
+                                    &lt;/div&gt;
+                                    &lt;div class="form-group"&gt;
+                                        &lt;input type="submit" value="提交" class="btn btn-success btn-block"&gt;
+                                    &lt;/div&gt;
+                        &lt;/form&gt;
+                    &lt;/div&gt;
+                    &lt;div class="modal-footer"&gt;
+                        &lt;button class="btn btn-info" data-dismiss="modal"&gt;关闭&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+</code></pre></div></div>
+
+<h1 id="下拉菜单">下拉菜单</h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;button class="btn btn-primary" data-toggle="collapse" data-target="#user"&gt;用户管理&lt;/button&gt;
+        &lt;div id="user" class="collapsing"&gt;  collapsing是隐藏
+            &lt;li&gt;用户列表&lt;/li&gt;
+            &lt;li&gt;添加用户&lt;/li&gt;
+        &lt;/div&gt;
+        &lt;button class="btn btn-primary" data-toggle="collapse"
+        data-target="#tie"&gt;帖子管理&lt;/button&gt;
+        &lt;div id="tie" class="collapsing"&gt;
+            &lt;li&gt;帖子列表&lt;/li&gt;
+            &lt;li&gt;添加帖子&lt;/li&gt;
+        &lt;/div&gt;
+</code></pre></div></div>
+

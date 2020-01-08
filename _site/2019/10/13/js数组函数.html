@@ -1,0 +1,116 @@
+<h1 id="js数组函数">js数组函数</h1>
+<p>indexOf 正向查询数组单元 有结果返回第一个对应的索引，没有就返回-1<br />
+lastIndexOf倒序查询数组单元，有结果返回第一个匹配的元素 没有就返回-1<br />
+concat 拼接一个数组，返回一个数组</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var arr = [1,2,3];
+var brr = [4,5,6];
+var newArr = arr.concat(brr,[4,5,6]);
+console.log(newArr); // 1,2,3,4,5,6,4,5,6
+</code></pre></div></div>
+<p>pop 弹出数组中最后一个单元 影响原来的数组<br />
+var a = arr.pop(); <br />
+console.log(arr); // 1，2</p>
+
+<p>shift 弹出数组中的第一个单元 影响原来的数组<br />
+var b = arr.shift();<br />
+console.log(arr); // 2，3</p>
+
+<p>push 从数组的尾部压入一个或多个单元、数组  影响原来的数组<br />
+var c = arr.push(4,5,6);<br />
+console.log(arr); // 1，2，3，4，5，6</p>
+
+<p>unshift 从数组前面插入 影响原来的数组<br />
+var d = arr.unshift(4,5,6);<br />
+console.log(arr); // 4，5，6，1，2，3</p>
+
+<p>slice 数组元素的截取<br />
+var arr = [1,2,3,4,5,6,7,8]; <br />
+var e = arr.slice(1); // 从索引1位置开始，截取到末尾 结果 2345678<br />
+var f = arr.slice(1,3); // 从索引1位置开始，截取到索引3位置 结果为2，3 要前不要后<br />
+var g = arr.slice(-2); // 从倒数第2格开始取，取到末尾  结果7，8<br />
+var h = arr.slice(-3,-2); // 从倒数第3格开始取，取到倒数第2个 结果为 6</p>
+
+<p>splice 截取数组元素 影响原数组<br />
+var i = arr.splice(1); // 从索引1位置开始，取到末尾<br />
+console.log( i ); // 结果 2,3,4,5,6,7,8<br />
+console.log(arr); // 结果 1<br />
+var j = arr.splice(1,1); // 从索引1 开始截取，取出1个<br />
+console.log( j ); // 结果 1<br />
+console.log(arr); // 结果 2,3,4,5,6,7,8</p>
+
+<p>Array.isArray  判断变量是否为数组，是就返回ture，否就返回false<br />
+var num = 10；<br />
+var res = Array.isArray（num）； //  res 返回false</p>
+
+<h1 id="数组的新方法">数组的新方法</h1>
+<h3 id="filter-过滤数组单元将满足调教的元素进行过滤-返回一个新数组">filter 过滤数组单元，将满足调教的元素进行过滤 返回一个新数组</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var arr = ['香蕉','牛奶','西瓜','菠萝'];
+var newArr = arr.filter(function (value index){
+// 作为筛选的条件 返回true元素会白返回到新数组中
+// 形参value接收的是每一个数组单元的值，形参接收数组单元的索引
+				if(value.length &gt;= 3){
+						return true;
+				}
+});
+console.log(newArray);
+</code></pre></div></div>
+<h3 id="map-对数组单元进行回调函数的处理返回一个新数组">map 对数组单元进行回调函数的处理，返回一个新数组</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var arr = [1,2,3,4,5,6];
+var newArray = arr.map(function (value){
+				return value*value*value;
+});
+console.log(newArray);  // 1, 8, 27, 64, 125, 216
+</code></pre></div></div>
+<h3 id="some-数组中只要有一个元素满足即可--返回true-否则返回false">some 数组中只要有一个元素满足即可  返回true 否则返回false</h3>
+<p>碰到了元素满足，就返回true，终止遍历</p>
+<h3 id="every-数组中每一个元素都要满足才返回true-否则返回false">every 数组中每一个元素都要满足，才返回true 否则返回false</h3>
+<p>元素不满足，就返回false，终止遍历</p>
+<h3 id="reduce-将数组的元素从左到右依次进行操作">reduce 将数组的元素从左到右依次进行操作</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var arr = [1,2,3,4,5];
+prevValue 上一个值  
+nowValue  当前单元的值
+index  当前单元的索引
+arrSelf 当前数组本身
+var sum = arr.reduce(function (prevValue,nowValue,index,arrSelf){
+				return prevValue + nowValue;
+}，2 );
+reduce方法的第2个参数可以设置prevValue的初始值 
+console.log(sum); // 17
+</code></pre></div></div>
+<h3 id="reduceright-将数组的元素从右到左依次进行操作">reduceRight 将数组的元素从右到左依次进行操作</h3>
+
+<h3 id="tostring-将对象包括数组-转为字符串格式">toString 将对象包括数组 转为字符串格式</h3>
+
+<h3 id="sort-对数组的元素进行排序">sort 对数组的元素进行排序</h3>
+<p>var arr = [1,3,4,2,33,a,c,as];<br />
+var a = arr.sort();<br />
+结果  [1, 2, 3, 33, 4, “a”, “as”, “c”]</p>
+
+<p>冒泡排序方法<br />
+var a = [9,8,7,6,5,4,3,2,1];<br />
+数组中两个数进行比较，把最大值的数组单元放到最后<br />
+结果 [1,2,3,4,5,6,7,8,9]  例子自己想</p>
+
+<h3 id="arr_unique-数组去重方法">arr_unique 数组去重方法</h3>
+
+<h3 id="arr_reverse-反转数组单元">arr_reverse 反转数组单元</h3>
+
+<h3 id="arr_count-统计数组单元个数的函数">arr_count 统计数组单元个数的函数</h3>
+
+<h2 id="变量的储存方式">变量的储存方式</h2>
+<h3 id="基本类型值">基本类型值</h3>
+<p>内存中储存的是对应的值
+操作的是具体的值  包含的类型 undefined null number boolean string<br />
+var a = 10;</p>
+<h3 id="引用类型值">引用类型值</h3>
+<p>内存中储存的是地址<br />
+操作的是地址，储存的值没有改变  包含的类型  object<br />
+var obj = {name:’lisi’,age:20};</p>
+
+<h2 id="数据存储结构">数据存储结构</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>			栈：子弹压弹夹
+					先进后出，后进先出
+			队列：
+					先进先出，后进后出
+</code></pre></div></div>
+

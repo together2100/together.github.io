@@ -1,0 +1,88 @@
+<h1 id="js数组">js数组</h1>
+
+<p>遍历数组
+1.用for循环遍历</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var arr = [1,2,3,4,5,6,7];
+for(var i = 0 i &lt; arr.length; i++){
+		console.log(arr[i] + '-----' + i);
+}
+</code></pre></div></div>
+<p>2.用forEach 循化遍历</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>forEach(function (value,index,arrSelf){
+		value 当前元素的值
+		index 当前元素的索引
+		arrSelf 当前数组本身
+})
+arr.forEach(function(value,index,arrSelf){
+		console.log(value + '-----' + index);
+})
+</code></pre></div></div>
+<p>3.用for in 遍历</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>关联数组 
+var obj = {
+	uname: 张三;
+	age: 30;
+	sex: 男;
+}
+for (var i in obj){
+	console.log(i + '----' + obj[i]);
+}
+for (var i in arr){
+console.log(i + '----' + arr[i]);
+}
+</code></pre></div></div>
+<h1 id="获取js的对象">获取js的对象</h1>
+<ol>
+  <li>通过ID获取对象
+document.getElementById</li>
+  <li>通过Class获取对象
+document.getElementsByClassName</li>
+  <li>通过标签获取对象
+document.getElmentsTagName</li>
+</ol>
+
+<h1 id="js事件">js事件</h1>
+<p>alert 弹窗事件
+onclick 单击事件</p>
+<h3 id="事件对象">事件对象</h3>
+<p>e.clientX 鼠标X坐标
+e.clientY 鼠标Y坐标
+阻止 使用冒泡
+e.stopPropagation();
+阻止事件冒泡的内容
+e.cancelBubble=true</p>
+<h3 id="window-对象">window 对象</h3>
+<p>1.文档事件
+onload 文档加载成功
+onunload 关闭窗口 的时候触发 IE
+onbeforeunload 离开页面 的时候给予提示
+2.图片事件
+onload
+onerror
+3.鼠标事件
+onclick  单击事件
+ondblclick  双击事件
+onmousedown  鼠标按下
+onmouseup  鼠标弹起
+onmousemove  鼠标移动
+onmouseout  鼠标 移除
+onmouseover 鼠标移入
+onmouseenter 鼠标移入
+onmouseleave 鼠标移除
+前者对于包含关系的元素会出现移入移除的效果
+后者 对于包含关系的元素不会出现移入移除的效果
+4.键盘事件
+onkeydown 按下键盘
+onkeyup 弹起键盘
+onkeypress 按键盘事件
+5.表单事件
+onblur  失去焦点
+onfocus  获取焦点事件
+onselect  选中文本事件
+onchange  改变 选项事件
+onsubmit 提交事件
+onreset   重置事件
+6.其他事件
+oncontextmenu 菜单事件
+onscroll 滚动条事件</p>
+

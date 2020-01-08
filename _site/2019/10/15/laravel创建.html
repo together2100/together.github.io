@@ -1,0 +1,46 @@
+<h1 id="laravel-项目创建">laravel 项目创建</h1>
+<p>先安装composer <br />
+最近phpcomposer镜像存在问题，可以改成<br />
+composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+使用Composer安装laravel<br />
+cd /var/www/ 进入到www目录下<br />
+composer create-project laravel/laravel MyLaravel    Mylaravel是项目名称，可以自己取<br />
+修改权限<br />
+sudo chmod -R 777 storage<br />
+sudo chmod -R 777 vendor</p>
+
+<h3 id="访问入口文件---httplocalhostblogpublic">访问入口文件   http://localhost/blog/public/</h3>
+
+<h2 id="修改域名">修改域名</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. cd /var/www/
+2. mkdir aa
+3. mkdir bb
+4. sudo vim /etc/hosts  
+5.127.0.0.1 AA.com   127.0.0.1 BB.com
+6. sudo cp /etc/apache2/sites-available/000-default.conf  AA.conf 
+7. cd /etc/apache2/sites-available/
+8. sudo vim /AA.conf
+9. 修改如下 ：
+ 
+   ServerName AA.com
+   ServerAdmin webmaster@localhost
+   DocumentRoot /var/www/AA
+   
+   配置多个域名
+10. sudo cp /AA.conf BB.conf 
+11. 把AA.conf里的AA改成BB即可
+注意：ServerName 前面的注释要去掉。
+sudo service apache2 restart 重启阿帕齐服务
+创建软连接
+sudo ln -s  /etc/apach2/sites-avaliable/test.conf  /etc/apache2/sites-enabled/test.conf
+注意：建立软连接，如果失败，给文件夹权限  
+</code></pre></div></div>
+<h2 id="路由跳转问题">路由跳转问题</h2>
+<p>要开启重写模块， 在etc/apache2下  执行命令 sudo a2enmod rewrite<br />
+查看apache2。conf配置文件下 <br />
+  AllowOverride None  <br />
+ Require all granted<br />
+ 该为  AllowOverride ALL<br />
+ 这样在它就会在后缀自动加上indexphp了，而且是隐藏的。<br />
+这个称为伪静态 , 最后查看 .htaccess</p>
+

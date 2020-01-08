@@ -1,0 +1,163 @@
+<h1 id="js-函数">js 函数</h1>
+<p>声明函数方法1  用function关键字</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function xxx (){  // xxx为函数名
+alert('函数');
+}
+xxx(); // 调用函数
+</code></pre></div></div>
+<p>声明函数方法2  把匿名函数赋值给变量</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var xxx = function (){
+	console.log('xxx');
+}
+xxx(); // 调用函数
+</code></pre></div></div>
+<p>声明函数方法3 使用 构造函数定义函数</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var xxx = new Function( '参数值' , 'alert("xxx" + 参数值)');
+xxx('参数值'); //  调用函数
+</code></pre></div></div>
+<p>优先级 是 方法1 在所有地方都可以调用，方法2 方法3 只能在定义后才能使用，定义前使用会报错。undefined</p>
+<h2 id="面试题之一--猜执行的结果">面试题之一  猜执行的结果</h2>
+<p>var 优先声明 声明变量test 此时test是undefined
+function 优先定义 test是一个函数，前后都可以调用
+程序执行顺序往下   test变成了数值
+test（）调用就无效了。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>console.log(test);  // 结果 function
+var test = 20;  
+function test(){
+	console.log('看看我是谁');
+}
+test();  // 结果 undefined
+</code></pre></div></div>
+<h1 id="函数参数-作用域-return">函数参数 作用域 return</h1>
+<h3 id="参数">参数</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function hello (name){
+		console.log('你好' + name);
+}
+hello('老王'); 
+当定义函数有参数，必须传参数，不然默认值是undefined
+定义参数的是 形参，调用参数传参的是 实参
+</code></pre></div></div>
+<h3 id="作用域">作用域</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>局部作用域  在函数中定义的变量，只在函数内部有效
+全局作用域  在函数外部定义的变量，在函数内外都可以使用
+作用链域  函数内部变量进行查找时
+1. 先从函数自身所在的作用域查找
+2. 如果没有，就向父级或先辈作用域查找
+3. 还是没有，最终值是undefined
+var a = 100;
+function B(){
+		var a = 200;
+}
+function A(){
+		console.log(a);
+}
+A();  // a的结果为  200
+
+function C(){
+	//a的变量是存在的，但是a的值是undefined   执行顺序
+		console.log(a);
+		var a = 1000; 
+}
+C(); // a的结果是 undefined
+</code></pre></div></div>
+<h1 id="局部变量影响-全局变量">局部变量影响 全局变量</h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>影响方式  
+1. 局部变量不使用 var关键字 
+2. 使用return 关键字将局部变量的值返回函数外部，使用对应的变量进行接收 
+例1
+var  a = 200;
+function test(){
+	  a = 1000;
+}
+console.log(a); // 没调用函数前 a的值是 200 
+test();
+console.log(a); // 调用函数后，a的值是 1000 
+例2
+var b = 10;
+function test(){
+		var b = 0;
+		return b;
+}
+console.log(b); // 10
+var c = test();
+console.log(b); // 10 调用函数之后，b没有接收到变量所以还是10
+console.log(c); // 0  c变量接收了该函数返回的值，所以 c 是 0
+b = test();
+console.log(b); // 0 
+</code></pre></div></div>
+<h2 id="return-关键字">return 关键字</h2>
+<ol>
+  <li>可以将变量的值返回到函数外部</li>
+  <li>return后面的代码不会执行</li>
+</ol>
+
+<h1 id="函数类型">函数类型</h1>
+<p>1.有参数的函数、 无参数的函数
+2.匿名函数、回调函数、 立即执行函数
+3.闭包函数、 递归函数
+例1</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function (){}  // 没有参数的函数是无参函数 ， 也是匿名函数
+function (row, col){ // 括号里是有参数的函数
+默认值1. 可以在（row = 7，col = 8）
+2.在低版本的浏览器处理
+row = row != undefined ? row : 7;
+col = col != undefined ? col : 8;
+}
+</code></pre></div></div>
+<p>例2</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#red{ transition: all 1s linear;} 
+   var red = document.getElementById('red');
+    red.onclick = function (){ // 绑定一个单击事件, 单击时在1秒内变圆，背景颜色变红；
+        this.style.borderRadius = '50%';   
+        this.style.background = 'red';
+         }
+  回调函数   系统的回调函数 setInterval(function (){},1000) 周期性定时器 以ms毫秒计时 
+  自定义回调函数
+  function filter (con){ 
+      for(var i = 0; i &lt;= 100; i++){ // 输出1 到100的数
+        if( con(i)){
+        console.log(i);
+        }
+	  }
+  }
+  function two(i){
+  	if(i % 2 == 0){ 
+  		return ture;
+  	}else{
+  		return false;
+  	}
+  	// 简化写法  return i % 2 == 0; // 比较表达式 
+  }
+  filter(two);  // two 是filter的回调函数 
+  // 函数执行规律  主程序遇到函数，进入函数内部执行完毕将返回值返回函数调用的位置 继续向下执行
+</code></pre></div></div>
+<p>立即执行函数  函数声明后立刻被调用</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(function (name){ console.log('马上出征' + name);})('将军');
+</code></pre></div></div>
+<p>例3</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>闭包函数 返回值是一个函数 返回的函数保留了函数定义时的作用域 
+var a = 10;
+function A(){
+	var a = 100; // a的变量为100
+        function B(){
+            console.log(a); // B里没有a变量，向上级查找
+            }
+            return B; // 返回函数中的 a变量 100 
+}
+var C = A();
+console.log(a); // 结果为 10 
+C(); // 调用函数 得到返回的值为 100  结果为100
+</code></pre></div></div>
+<p>递归函数</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function sum(n){
+    if( n == 1){
+    return 1;
+    }
+    var res = n + sum(n -1); 
+    return res;
+}
+var res = sum(5); 
+console.log(res); // 结果15
+递归函数都要有终止条件。
+</code></pre></div></div>
+
